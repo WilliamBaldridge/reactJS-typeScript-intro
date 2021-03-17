@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import NoteForm from "./NoteForm"
+import {log} from "util";
 
 function App() {
+
+    const [allNotes, setAllNotes] = useState({notes: []});
+
+    function onNewNote(note: any) {
+
+        console.log(console.log(note));
+        setAllNotes({...allNotes, notes: [...allNotes.notes]})
+
+    }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>My Thinking Stream</h1>
       </header>
+        <NoteForm onSubmit={onNewNote}/>
+        <div className="notes-list">
+            <h2>My Thoughts</h2>
+            {allNotes.notes.map( (note: any) => <div className="note-item">{note.body}</div> )}
+        </div>
     </div>
   );
 }
